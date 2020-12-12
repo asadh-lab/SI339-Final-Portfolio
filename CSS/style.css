@@ -1,0 +1,665 @@
+/*
+Project Name: Creepy Crawlers SI 339
+Author: Hamza Asad
+email: asadh@umich.edu
+*/
+
+/*
+Table of Contents
+  =01 Reset/Global/Helpers
+  =02 Typography
+  =03 Nav
+  =04 Layout
+    =PAGE SPECIFIC STYLES
+      =HOME
+      =LEGENDS
+      =MYTHS
+      =US
+*/
+
+/***** =01 Reset/Global/Helpers *****/
+
+* {
+    /* see https://css-tricks.com/box-sizing/ */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: inherit;
+    line-height: inherit;
+    color: inherit;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/*** Helper/Utility classes ***/
+.iframe {
+    border: solid red 1px;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.iframe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.me-hide {
+    display: none !important;
+}
+
+.me-short {
+    height: 4px !important;
+    overflow: hidden;
+}
+
+#skip {
+    display: flex;
+    z-index: 1;
+}
+
+#skip a {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: -5rem;
+    padding: 0.5rem 1rem 1rem;
+    font-size: 90%;
+    font-weight: bold;
+    color: white;
+    background: rgb(129, 0, 0);
+    border-radius: 0 0 16px 16px;
+    z-index: 1;
+    transition: top 300ms ease-in-out;
+}
+
+
+#skip a:focus {
+    top: 0;
+    transition: top 300ms ease-in-out;
+}
+
+/* https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034 */
+/* .sr-only {
+	position: absolute !importa	nt;
+	overflow: hidden !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	width: 1px !important;
+	height: 1px !important;
+	border: 0 !important;
+	white-space: nowrap !important;
+
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+} */
+
+/*
+	Use in conjunction with .sr-only to only display content when it's focused.
+	@note Useful for skip links
+	@see http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
+	@note Based on a HTML5 Boilerplate technique, included in Bootstrap
+	@note Fixed a bug with position: static on iOS 10.0.2 + VoiceOver
+		@author Sylvain Pigeard
+		@see https://github.com/twbs/bootstrap/issues/20732
+*/
+/* .sr-only-focusable:focus,
+.sr-only-focusable:active {
+	overflow: visible !important;
+	clip: auto !important;
+	margin: auto !important;
+	width: auto !important;
+	height: auto !important;
+	white-space: normal !important;
+
+	-webkit-clip-path: none !important;
+	clip-path: none !important;
+} */
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
+    }
+
+    #bigfoot-big {
+        animation-name: disable;
+    }
+}
+
+
+/***** =02 Typography *****/
+
+html {
+    font-size: 100%;
+    /* 16px = 1rem = 1em */
+    color: #222;
+    overflow-y: scroll;
+}
+
+body {
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, Noto Sans, sans-serif,  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: hsl(0, 0%, 90%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+h1 {
+    padding: 0.5em;
+    font-family: 'Piedra', cursive;
+    color: white;
+}
+
+h2 {
+    margin-bottom: 0.75em;
+}
+
+.intro h2 {
+    font-size: 200%;
+}
+
+
+a {
+    color: hsl(0, 89%, 66%);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.page-footer {
+    color: white;
+    text-align: center;
+    font-size: 85%;
+}
+
+/**** 480px/30em ****/
+@media screen and (min-width: 30em) {}
+
+/**** 480px/30em ends ****/
+
+
+/***** =03 Nav*****/
+
+.js .menu-toggle {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px 2px 0;
+    color: black;
+    border: none;
+    border-radius: 4px;
+}
+
+.menu-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Piedra', cursive;
+    font-size: 85%;
+    font-size: clamp(13px, 4.25vw, 2em);
+    background-color: rgb(129, 0, 0);
+}
+
+.nav_links {
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0.25em 0;
+    list-style-type: none;
+}
+
+.nav_links li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-js .nav_links {
+    flex-direction: column;
+}
+
+.no-js .nav_links li {
+    margin-bottom: 0.5em;
+}
+
+
+.nav_links a {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.nav_links a:hover {
+    text-decoration: underline;
+}
+
+.current img {
+    width: 1.75em;
+}
+
+/**** 480px/30em ****/
+@media screen and (min-width: 30em) {}
+
+/**** 480px/30em ends ****/
+
+/**** 600px/37.5em ****/
+@media screen and (min-width: 37.5em) {
+    .js .menu-toggle {
+        display: none;
+    }
+
+    .nav_links {
+        display: flex;
+    }
+
+    .no-js .nav_links li {
+        margin-bottom: unset;
+    }
+
+    .no-js .nav_links {
+        flex-direction: row;
+    }
+}
+
+/***** =04 Layout*****/
+/*
+    Global styles, mobil first
+    Then Media Queries for Global styles
+    Then Page Specific styles with their media queries
+*/
+
+body {
+    background-color: black;
+}
+
+.page-header {
+    background-image: url(../Images/footprints.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.page-header img {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.content-wrap {
+    margin: 0 auto;
+    padding: 2vw 6vw;
+    max-width: 900px;
+}
+
+
+/* All the rest of the basic mobil layout style rules */
+.page-footer {
+    background-color: black;
+    padding: 30px;
+}
+
+/**** 480px/30em ****/
+@media screen and (min-width: 30em) {}
+
+/**** 480px/30em ends ****/
+
+/**** 600px/37.5em ****/
+@media screen and (min-width: 37.5em) {}
+
+/**** 600px/37.5em ends ****/
+
+/*** PAGE SPECIFIC STYLES ***/
+
+/* =MODULES */
+/* alternating left/right message box on background image */
+.item-container {
+    padding: 1em;
+}
+
+.item-wrap {
+    /* CSS custom properties - caniuse.com 95% */
+    --item-height: 600px;
+    --msg-bkg-clr: hsla(0, 0%, 100%, 0.75);
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1px 1em auto 1em 1px;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.img-wrap {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+}
+
+.img-wrap img {
+    display: block;
+    object-fit: cover;
+    /* width: 100%; */
+    height: 100%;
+    /* max-height: var(--item-height); */
+}
+
+.message {
+    border: 8px solid black;
+    height: 100%;
+    grid-column: 1 / -1;
+    grid-row: 3 / -3;
+    margin: 0 1em;
+    padding: 1em;
+    font-size: 0.9em;
+    color: black;
+    background-color: var(--msg-bkg-clr);
+    z-index: 1;
+}
+
+.message p {
+    line-height: 1.5;
+}
+
+@media screen and (min-width: 30em) {
+    .img-wrap {
+        grid-template-rows: repeat(5, auto);
+        grid-row: 1 / -1;
+    }
+
+    .item-wrap:nth-child(even) .message,
+    .item-wrap:nth-child(odd) .img-wrap {
+        grid-column: -1 / -3;
+    }
+
+    .item-wrap:nth-child(odd) .message,
+    .item-wrap:nth-child(even) .img-wrap {
+        grid-column: 1 / 3;
+    }
+
+    .message {
+        grid-row: 3;
+        height: unset;
+        margin: 0;
+        font-size: 1em;
+    }
+}
+
+/*** =HOME page ***/
+.cc-home #bigfoot-big {
+    animation-duration: 3s;
+    animation-name: logo_wiggle;
+}
+
+@keyframes logo_wiggle {
+    0% {
+        transform: rotate(25deg);
+    }
+
+    50% {
+        transform: rotate(-25deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+
+}
+
+
+.cc-home .gallery-frame {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 3%;
+    grid-row-gap: 1%;
+    background-image: url('../Images/bf-background.png');
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.cc-home .item1 {
+    grid-column: 1 / -1;
+}
+
+.cc-home .item2 {
+    grid-column: 2 / -1;
+    grid-row: 2;
+}
+
+.cc-home .item3 {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+
+.cc-home .item3 img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.cc-home .item4 {
+    grid-column: 2 / 3;
+    grid-row: 3;
+}
+
+.cc-home .item4 img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.cc-home .item5 {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+.cc-home .item6 {
+    grid-column: 4 / 5;
+    grid-row: 3;
+}
+
+.cc-home .item6 img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.cc-home .item7 {
+    grid-column: 1 / -1;
+    grid-row: 4;
+}
+
+.cc-home .item8 {
+    grid-column: 1 / -1;
+    grid-row: 5;
+}
+
+.cc-home .item8 img {
+    object-fit: cover;
+    height: 100%;
+}
+
+/* Bigfoot reveal */
+
+/* Restore on leaving hover state. Will work for all images in the gallery. */
+.cc-home .gallery-frame div {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.cc-home .item1:hover {
+    opacity: 0.7;
+    transition: opacity 3s ease-in-out;
+}
+
+.cc-home .item2:hover {
+    opacity: 0.65;
+    transition: opacity 2s ease-in-out;
+}
+
+.cc-home .item3:hover {
+    opacity: 0.25;
+    transition: opacity 1250ms ease-in-out;
+}
+
+.cc-home .item4:hover {
+    opacity: 0;
+    transition: opacity 1750ms ease-in-out;
+}
+
+.cc-home .item5:hover {
+    opacity: 0.4;
+    transition: opacity 1750ms ease-in-out;
+}
+
+.cc-home .item6:hover {
+    opacity: 0.2;
+    transition: opacity 750ms ease-in-out;
+}
+
+.cc-home .item7:hover {
+    opacity: 0.85;
+    transition: opacity 2500ms ease-in-out;
+}
+
+.cc-home .item8:hover {
+    opacity: 0.35;
+    transition: opacity 2500ms ease-in-out;
+}
+
+/*** =MYTHS ***/
+.cc-mythical figure {
+    margin-bottom: 1em;
+}
+
+.cc-mythical figcaption {
+    margin-bottom: 0.5em;
+    font-size: 125%;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media screen and (min-width: 37.5em) {
+
+    .cc-mythical .grid-container {
+        display: grid;
+        grid-template-columns: 3fr 5fr 3fr;
+        grid-gap: 2vw;
+    }
+
+    .cc-mythical .gallery1 {
+        grid-column: 1;
+        grid-row: 1;
+        /* border: 2px solid red; */
+    }
+
+    .cc-mythical figure {
+        padding-bottom: 100px;
+    }
+
+    .cc-mythical main {
+        grid-column: 2;
+        grid-row: 1;
+        /* border: 2px solid red; */
+    }
+
+    .cc-mythical .gallery2 {
+        grid-column: 3;
+        grid-row: 1;
+        /* border: 2px solid red; */
+    }
+
+    .cc-mythical .gallery3 {
+        grid-column: 2;
+        grid-row: 2;
+        /* border: 2px solid red; */
+    }
+}
+
+/** LEGEND page **/
+
+.cc-legend main {
+    background-color: hsl(0, 1%, 52%);
+}
+
+/*** =US page ***/
+
+.cc-usfolklore .gallery-frame {
+    display: flex;
+    flex-direction: column;
+}
+
+.cc-usfolklore .gallery-frame .item {
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+/**** 600px/37.5em ****/
+@media screen and (min-width: 37.5em) {
+
+    .cc-usfolklore .gallery-frame {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cc-usfolklore .gallery-frame .item {
+        border: 10px #50c7c7 solid;
+        margin: 0.5em;
+        width: 45%;
+        height: auto;
+    }
+
+    .cc-usfolklore .gallery-frame .item {
+        object-fit: fill;
+    }
+
+}
+
+/**** 600px/37.5em ends *****/
+
+/*** end PAGE SPECIFIC STYLES ***/
